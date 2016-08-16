@@ -497,6 +497,13 @@ unsigned char* unbase64( const char* ascii, int len, int *flen )
         // DLog(@"js: %@", js);
         [self.commandDelegate evalJs:js];
 
+        // Added by JMK from:
+        //    https://github.com/j3k0/cordova-plugin-purchase/pull/338/commits/259ed546736fc80260c1f294332ab976e60d714a
+        if (canFinish){
+          [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+        }
+        // End Addition
+
         if (downloads && [downloads count] > 0) {
             [[SKPaymentQueue defaultQueue] startDownloads:downloads];
         }
